@@ -1,0 +1,52 @@
+
+#logo {
+    width: 420px;
+    height: 140px;
+    margin: auto;
+}
+footer {
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:30px;
+    width:100%;
+    background-color:#f8f8f8;
+    text-align:center;
+    padding:5px;
+}
+table tr th {
+    text-align: center;
+}
+table tr th:first-child {
+    text-align: left;
+}
+table tr th:last-child {
+    text-align: right;
+}
+table tr td {
+    text-align: center;
+    padding-bottom: 2px !important;
+    padding-top: 2px !important;
+}
+table tr td:first-child {
+    text-align: left;
+}
+table tr td:last-child {
+    text-align: right;
+}
+.tags td {
+    border-top: 0 !important;
+    color: lightblue;
+    text-align: left !important;
+}
+tr:last-child td {
+    border-bottom: 1px solid #ddd;
+}
+.ok {
+    color: green;
+}
+@media (max-width: 640px) {
+.container {
+    font-size: 20px !important;
+}
+}
