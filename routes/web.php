@@ -4,6 +4,14 @@
 
 Route::get('/', 'TransactionController@index');
 
+Route::get('/transactions/new', 'TransactionController@new');
+
+Route::post('/transactions/new', 'TransactionController@addNewTransaction');
+
+Route::get('/transactions/edit/{id}', 'TransactionController@edit');
+
+Route::post('/transactions/edit', 'TransactionController@saveEdits');
+
 Route::any('/practice/{n?}', 'PracticeController@index');
 
 Route::get('/debug', function() {

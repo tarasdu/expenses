@@ -4,13 +4,17 @@
     height: 140px;
     margin: auto;
 }
+.navbar-brand {
+    display: none;
+}
 footer {
-    position: absolute;
+    position: fixed;
     left:0;
     bottom:0;
     height:30px;
     width:100%;
-    background-color:#f8f8f8;
+    color: #9d9d9d;
+    background-color:#101010;
     text-align:center;
     padding:5px;
 }
@@ -30,9 +34,11 @@ table tr td {
 }
 table tr td:first-child {
     text-align: left;
+    border-left: 1px solid #ddd;
 }
 table tr td:last-child {
     text-align: right;
+    border-right: 1px solid #ddd;
 }
 .tags td {
     border-top: 0 !important;
@@ -42,11 +48,30 @@ table tr td:last-child {
 tr:last-child td {
     border-bottom: 1px solid #ddd;
 }
-.ok {
-    color: green;
+.table>thead>tr>th {
+    border-bottom: 0 !important;
 }
-@media (max-width: 640px) {
-.container {
-    font-size: 20px !important;
+
+@media (max-width: 480px) {
+.container-fluid, .container {
+    font-size: 16px !important;
+}
+.form-control {
+    height: 50px !important;
+    font-size: 18px !important;
+}
+#logo {
+    display: none;
+}
+form h2 {
+    margin-top: 0;
+    text-align: center;
+}
+.navbar-brand {
+    padding: 3px 0px 9px 15px !important;
+    display: inherit;
+}
+footer {
+    display: none !important;
 }
 }
