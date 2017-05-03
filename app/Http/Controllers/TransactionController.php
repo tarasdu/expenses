@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 use App\Transaction;
 use Session;
 
@@ -12,7 +13,7 @@ class TransactionController extends Controller
 
         $transaction = new Transaction();
 
-        $transactions = $transaction->orderBy('date', 'desc')->get();
+        $transactions = $transaction->with('category')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
         #dd($transactions->toArray());
 
         return view('transactions.index')->with([
@@ -24,7 +25,18 @@ class TransactionController extends Controller
 
     public function new() {
 
-        return view('transactions.new');
+        # Get all the categories
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        # Organize the categories into an array where the key = category id and value = category name
+        $categoriesForDropdown = [];
+        foreach($categories as $category) {
+            $categoriesForDropdown[$category->id] = $category->name;
+        }
+
+        return view('transactions.new')->with([
+            'categoriesForDropdown' => $categoriesForDropdown,
+        ]);
 
     }
 
@@ -33,14 +45,14 @@ class TransactionController extends Controller
         $this->validate($request, [
             'date' => 'required|date',
             'amount' => 'required|numeric',
-            'category' => 'required|alpha',
-            'description' => 'required'
+            'category_id' => 'not_in:0',
+            'description' => 'nullable'
         ]);
         # Add new book to database
         $transaction = new Transaction();
         $transaction->date = $request->date;
         $transaction->amount = $request->amount;
-        $transaction->category = $request->category;
+        $transaction->category_id = $request->category_id;
         $transaction->description = $request->description;
         $transaction->save();
 
@@ -58,6 +70,16 @@ class TransactionController extends Controller
             Session::flash('message', 'The book you requested was not found.');
             return redirect('/');
         }
+
+        # Get all the categories
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        # Organize the categories into an array where the key = category id and value = category name
+        $categoriesForDropdown = [];
+        foreach($categories as $category) {
+            $categoriesForDropdown[$category->id] = $category->name;
+        }
+
         #$authorsForDropdown = Author::getAuthorsForDropdown();
         #$tagsForCheckboxes = Tag::getTagsForCheckboxes();
         # Create a simple array of just the tag names for tags associated with this book;
@@ -70,8 +92,8 @@ class TransactionController extends Controller
 
 
         return view('transactions.edit')->with([
-            'id' => $id,
             'transaction' => $transaction,
+            'categoriesForDropdown' => $categoriesForDropdown,
         ]);
 
 
@@ -82,19 +104,33 @@ class TransactionController extends Controller
         $this->validate($request, [
             'date' => 'required|date',
             'amount' => 'required|numeric',
-            'category' => 'required|alpha',
-            'description' => 'required'
+            'category_id' => 'not_in:0',
+            'description' => 'nullable'
         ]);
 
         $transaction = Transaction::find($request->id);
         # Edit transaction in the database
         $transaction->date = $request->date;
         $transaction->amount = $request->amount;
-        $transaction->category = $request->category;
+        $transaction->category_id = $request->category_id;
         $transaction->description = $request->description;
 
         $transaction->save();
         Session::flash('message', 'Your changes were saved.');
+        return redirect('/');
+    }
+
+    public function delete(Request $request) {
+        # Get the book to be deleted
+        $transaction = Transaction::find($request->id);
+        if(!$transaction) {
+            Session::flash('message', 'Deletion failed; book not found.');
+            return redirect('/');
+        }
+
+        $transaction->delete();
+        # Finish
+        Session::flash('message', 'Transaction was deleted.');
         return redirect('/');
     }
 }

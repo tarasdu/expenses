@@ -26,11 +26,17 @@
                 <input type='amount' step='0.01' name='amount' class="form-control" id='amount' value='{{ old('amount') }}'>
             </div>
             <div class="form-group">
-                <label for='category'>* Category</label>
-                <input type='category' name='category' class="form-control" id='category' value='{{ old('category') }}'>
+                <label for='category_id'>* Category:</label>
+                <select id='category_id' name='category_id' class="form-control">
+                    @foreach($categoriesForDropdown as $category_id => $categoryName)
+                        <option value='{{ $category_id }}'>
+                            {{$categoryName}}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
-                <label for='description'>* Description</label>
+                <label for='description'>Description</label>
                 <input type='description' name='description' class="form-control" id='description' value='{{ old('description') }}'>
             </div>
             {{-- Extracted error code to its own view file --}}

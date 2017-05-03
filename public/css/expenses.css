@@ -51,6 +51,9 @@ tr:last-child td {
 .table>thead>tr>th {
     border-bottom: 0 !important;
 }
+.modal-footer {
+    text-align: center !important;
+}
 
 @media (max-width: 480px) {
 .container-fluid, .container {

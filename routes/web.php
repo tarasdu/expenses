@@ -12,6 +12,8 @@ Route::get('/transactions/edit/{id}', 'TransactionController@edit');
 
 Route::post('/transactions/edit', 'TransactionController@saveEdits');
 
+Route::post('/transactions/delete', 'TransactionController@delete');
+
 Route::any('/practice/{n?}', 'PracticeController@index');
 
 Route::get('/debug', function() {
