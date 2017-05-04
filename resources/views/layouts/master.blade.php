@@ -52,7 +52,7 @@
 
                                 <li><a href='/'>Transactions</a></li>
                                 <li><a href='#'>Categories</a></li>
-                                <li><a href='#'>Expense Report</a></li>
+                                <li><a href='/report'>Expense Report</a></li>
 
                             </ul>
 

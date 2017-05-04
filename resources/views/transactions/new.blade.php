@@ -23,7 +23,10 @@
             </div>
             <div class="form-group">
                 <label for='amount'>* Amount</label>
-                <input type='amount' step='0.01' name='amount' class="form-control" id='amount' value='{{ old('amount') }}'>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type='amount' step='0.01' name='amount' class="form-control" id='amount' value='{{ old('amount') }}'>
+                </div>
             </div>
             <div class="form-group">
                 <label for='category_id'>* Category:</label>

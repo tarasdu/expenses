@@ -20,7 +20,9 @@
                             <p class="text-center">Delete transaction?</p>
                         </div>
                         <div class="modal-footer">
-                            <form method="POST" action="/transactions/delete">
+                            <form class="delete-modal" method="POST" action="/transactions/delete">
+                                {{ csrf_field() }}
+                                <input class="transactionId" type='hidden' name='id'>
                                 <input type="submit" class="btn btn-primary" value="Yes">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                             <form>
@@ -52,20 +54,17 @@
                             <tr class='row_{{ $transaction->id }}' data-href='/transactions/edit/{{ $transaction->id }}'>
                                 <td class='col1'>{{ $transaction->date }}<br>{{ $transaction->category->name }}<br><small>{{ $transaction->description }}</small></td>
                                 <td class='col2'>
-                                    <a href="#">
+                                    <a class="delete-icon" href="#deleteFromIndex" data-toggle="modal" data-transaction="{{ $transaction->id }}">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                     <br><br>${{number_format($transaction->amount, 2)}}
                                 </td>
-
-
-
                             </tr>
-                            </a>
+                        </a>
                         @endforeach
                     </tbody>
-                    </thead>
                 </table>
+                <br><br>
             @endif
         </div>
 
@@ -73,27 +72,33 @@
 
     @push('body')
         <script>
-            $("tr").click(function() {
+            $("tr, #delete-icon").click(function(event) {
 
-                /*
-                var transaction_id = '.' + $(this).attr( 'class' ) + ' td';
-                console.log(transaction_id);
-                $(transaction_id).css("color", "red");
+                var target = $(event.target);
 
-                console.log(transaction_id);
-                var query_date = transaction_id + ' .col1';
-                var value_date = $(query_date).text();
-                var new_date_field = '<td><input type="date" value="' + value_date + '"></input></td>'
-                $(query_date).replaceWith(new_date_field);
-                console.log(value);*/
-
-                window.location = $(this).data("href");
+                if (!target.is(".glyphicon-trash")) {
+                    window.location = $(this).data("href");
+                }
+                console.log(event.target);
 
 
 
 
 
             });
+
+            $('#deleteFromIndex').on('show.bs.modal', function (event) {
+
+                console.log("I am here");
+                var trigger = $(event.relatedTarget) // Button that triggered the modal
+                var transaction_id = trigger.data('transaction') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                console.log(transaction_id);
+                $('.transactionId').attr('value', transaction_id);
+
+            });
+
         </script>
     @endpush
 
