@@ -14,7 +14,7 @@
 
         <form method='POST' action='/transactions/new'>
             {{ csrf_field() }}
-            <h2>Add new transaction</h2>
+            <h2 class="text-center">Add new transaction</h2>
             <small>* Required fields</small>
 
             <div class="form-group">
@@ -32,7 +32,7 @@
                 <label for='category_id'>* Category:</label>
                 <select id='category_id' name='category_id' class="form-control">
                     @foreach($categoriesForDropdown as $category_id => $categoryName)
-                        <option value='{{ $category_id }}'>
+                        <option value='{{ $category_id }}' @if (old('category_id') == $category_id) {{ 'SELECTED' }} @endif>
                             {{$categoryName}}
                         </option>
                     @endforeach
@@ -45,8 +45,8 @@
             {{-- Extracted error code to its own view file --}}
             @include('errors')
 
-            <input class='btn btn-success btn-lg' type='submit' value='Add transaction'>
-            <a href="/" class="btn btn-danger btn-lg">Cancel</a>
+            <input class='btn btn-success btn-lg pull-left' type='submit' value='Add transaction'>
+            <a href="/" class="btn btn-danger btn-lg pull-right"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
             <br><br>
 
         </form>

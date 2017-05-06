@@ -12,29 +12,9 @@
 
     <div class='container'>
 
-        <div id="delete" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-sm">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <p class="text-center">Delete transaction?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form method="POST" action="/transactions/delete">
-                            <input type="submit" class="btn btn-primary" value="Yes">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        <form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         <form method='POST' action='/transactions/edit'>
             {{ csrf_field() }}
-            <h2>Edit transaction</h2>
+            <h2 class="text-center">Edit transaction</h2>
             <small>* Required fields</small>
 
             <input type='hidden' name='id' value='{{$transaction->id}}'>
@@ -46,11 +26,19 @@
                 <label for='amount'>* Amount</label>
                 <input type='number' step='0.01' name='amount' class="form-control" id='amount' value='{{ old('amount', number_format($transaction->amount, 2)) }}'>
             </div>
+
             <div class="form-group">
                 <label for='category_id'>* Category:</label>
                 <select id='category_id' name='category_id' class="form-control">
                     @foreach($categoriesForDropdown as $category_id => $categoryName)
-                        <option value='{{ $category_id }}' {{ ($transaction->category_id == $category_id) ? 'SELECTED' : '' }}>
+                        <option value='{{ $category_id }}'
+                        @if ($category_id == old('category_id'))
+                            {{ 'SELECTED' }}
+                        @elseif (!old('category_id'))
+                            {{ ($transaction->category_id == $category_id) ? 'SELECTED' : '' }}
+                        @else
+                            {{ '' }}
+                        @endif>
                             {{$categoryName}}
                         </option>
                     @endforeach
@@ -63,9 +51,8 @@
             {{-- Extracted error code to its own view file --}}
             @include('errors')
 
-            <input class='btn btn-success btn-lg' type='submit' value='Save'>
-            <a href="/" class="btn btn-info btn-lg">Cancel</a>
-            <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+            <input class='btn btn-success btn-lg pull-left' type='submit' value='Save'>
+            <a href="/" class="btn btn-danger btn-lg pull-right"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
             <br><br>
 
         </form>

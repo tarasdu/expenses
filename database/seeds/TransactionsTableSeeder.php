@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Category;
 use App\Transaction;
+use Carbon\Carbon;
 
 class TransactionsTableSeeder extends Seeder
 {
@@ -16,23 +17,21 @@ class TransactionsTableSeeder extends Seeder
         $categories = Category::all();
         $numberOfCategories = count($categories);
 
-        for ($i=0; $i < 90; $i++) {
+        for ($i=0; $i < 1000; $i++) {
 
-            $categoryId = rand(0, $numberOfCategories-2)+1;
-            $amount = rand(1, 200);
-            $day = rand(1, 28);
-            $month = rand(1, 12);
-            $year = 2016;
-            $randomDate = date_create();
-            date_date_set($randomDate, $year, $month, $day);
-            $date = date_format($randomDate, 'Y-m-d');
+            $categoryId = rand(0, $numberOfCategories-1)+1;
+            $amount = rand(1, 50);
+            $endDate = Carbon::now()->timestamp;
+            $startDate = Carbon::now()->subYears(2)->timestamp;
+            $randomDate = rand($startDate, $endDate);
+            $date = Carbon::createFromTimestamp($randomDate)->toDateString();
             $description = "Note ".rand(1, 100);
 
 
             Transaction::insert([
 
-                'created_at' => Carbon\Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon\Carbon::now()->toDateTimeString(),
+                'created_at' => Carbon::now()->toDateTimeString(),
+                'updated_at' => Carbon::now()->toDateTimeString(),
                 'date' => $date,
                 'amount' => $amount,
                 'category_id' => $categoryId,

@@ -13,7 +13,7 @@
             <div id="deleteFromIndex" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-sm">
 
-                    <!-- Modal content-->
+                    <!-- Modal -->
                     <div class="modal-content">
 
                         <div class="modal-body">
@@ -51,7 +51,7 @@
 
                         @foreach ($transactions as $transaction)
                             <a href="#">
-                            <tr class='row_{{ $transaction->id }}' data-href='/transactions/edit/{{ $transaction->id }}'>
+                            <tr class='transactionRow' data-href='/transactions/edit/{{ $transaction->id }}'>
                                 <td class='col1'>{{ $transaction->date }}<br>{{ $transaction->category->name }}<br><small>{{ $transaction->description }}</small></td>
                                 <td class='col2'>
                                     <a class="delete-icon" href="#deleteFromIndex" data-toggle="modal" data-transaction="{{ $transaction->id }}">
@@ -72,29 +72,22 @@
 
     @push('body')
         <script>
-            $("tr, #delete-icon").click(function(event) {
+
+            $(".transactionRow").click(function(event) {
 
                 var target = $(event.target);
 
                 if (!target.is(".glyphicon-trash")) {
                     window.location = $(this).data("href");
                 }
-                console.log(event.target);
-
-
-
-
 
             });
 
             $('#deleteFromIndex').on('show.bs.modal', function (event) {
 
-                console.log("I am here");
-                var trigger = $(event.relatedTarget) // Button that triggered the modal
-                var transaction_id = trigger.data('transaction') // Extract info from data-* attributes
-                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-                console.log(transaction_id);
+                var trigger = $(event.relatedTarget);
+                var transaction_id = trigger.data('transaction');
+
                 $('.transactionId').attr('value', transaction_id);
 
             });

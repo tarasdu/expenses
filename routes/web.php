@@ -16,6 +16,8 @@ Route::post('/transactions/delete', 'TransactionController@delete');
 
 Route::get('/report', 'ReportController@expenseReport');
 
+Route::get('/report/filter', 'ReportController@filter');
+
 Route::any('/practice/{n?}', 'PracticeController@index');
 
 Route::get('/debug', function() {
