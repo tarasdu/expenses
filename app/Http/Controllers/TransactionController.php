@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Tag;
 use App\Transaction;
 use Session;
 
@@ -13,8 +14,7 @@ class TransactionController extends Controller
 
         $transaction = new Transaction();
 
-        $transactions = $transaction->with('category')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
-        #dd($transactions->toArray());
+        $transactions = $transaction->with('category', 'tags')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
 
         return view('transactions.index')->with([
 
@@ -25,17 +25,12 @@ class TransactionController extends Controller
 
     public function new() {
 
-        # Get all the categories
-        $categories = Category::orderBy('name', 'ASC')->get();
-
-        # Organize the categories into an array where the key = category id and value = category name
-        $categoriesForDropdown = [];
-        foreach($categories as $category) {
-            $categoriesForDropdown[$category->id] = $category->name;
-        }
+        $categoriesForDropdown = Category::getCategoriesForDropdown();
+        $tagsForCheckboxes = Tag::getTagsForCheckboxes();
 
         return view('transactions.new')->with([
             'categoriesForDropdown' => $categoriesForDropdown,
+            'tagsForCheckboxes' => $tagsForCheckboxes,
         ]);
 
     }
@@ -48,7 +43,7 @@ class TransactionController extends Controller
             'category_id' => 'not_in:0',
             'description' => 'nullable'
         ]);
-        # Add new book to database
+
         $transaction = new Transaction();
         $transaction->date = $request->date;
         $transaction->amount = $request->amount;
@@ -56,8 +51,12 @@ class TransactionController extends Controller
         $transaction->description = $request->description;
         $transaction->save();
 
+        $tags = ($request->tags) ?: [];
+        $transaction->tags()->sync($tags);
+        $transaction->save();
+
         Session::flash('message', 'The transaction was added.');
-        # Redirect the user to book index
+
         return redirect('/');
     }
 
@@ -65,35 +64,28 @@ class TransactionController extends Controller
 
 
 
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with('tags')->find($id);
         if(is_null($transaction)) {
-            Session::flash('message', 'The book you requested was not found.');
+            Session::flash('message', 'Transaction was not found.');
             return redirect('/');
         }
 
-        # Get all the categories
-        $categories = Category::orderBy('name', 'ASC')->get();
+        $categoriesForDropdown = Category::getCategoriesForDropdown();
+        $tagsForCheckboxes = Tag::getTagsForCheckboxes();
 
-        # Organize the categories into an array where the key = category id and value = category name
-        $categoriesForDropdown = [];
-        foreach($categories as $category) {
-            $categoriesForDropdown[$category->id] = $category->name;
+
+        $tagsForThisTransaction = [];
+        foreach($transaction->tags as $tag) {
+            $tagsForThisTransaction[] = $tag->name;
         }
 
-        #$authorsForDropdown = Author::getAuthorsForDropdown();
-        #$tagsForCheckboxes = Tag::getTagsForCheckboxes();
-        # Create a simple array of just the tag names for tags associated with this book;
-        # will be used in the view to decide which tags should be checked off
-        #$tagsForThisBook = [];
-        #foreach($book->tags as $tag) {
-        #    $tagsForThisBook[] = $tag->name;
-        #}
-        # Results in an array like this: $tagsForThisBook => ['novel','fiction','classic'];
 
 
         return view('transactions.edit')->with([
             'transaction' => $transaction,
             'categoriesForDropdown' => $categoriesForDropdown,
+            'tagsForCheckboxes' => $tagsForCheckboxes,
+            'tagsForThisTransaction' => $tagsForThisTransaction,
         ]);
 
 
@@ -115,21 +107,32 @@ class TransactionController extends Controller
         $transaction->category_id = $request->category_id;
         $transaction->description = $request->description;
 
+        if($request->tags) {
+            $tags = $request->tags;
+        }
+        else {
+            $tags = [];
+        }
+
+        $transaction->tags()->sync($tags);
         $transaction->save();
+
         Session::flash('message', 'Your changes were saved.');
         return redirect('/');
     }
 
     public function delete(Request $request) {
-        # Get the book to be deleted
+
         $transaction = Transaction::find($request->id);
         if(!$transaction) {
-            Session::flash('message', 'Deletion failed; book not found.');
+            Session::flash('message', 'Deletion failed; transaction not found.');
             return redirect('/');
         }
 
+        $transaction->tags()->detach();
+
         $transaction->delete();
-        # Finish
+
         Session::flash('message', 'Transaction was deleted.');
         return redirect('/');
     }

@@ -48,6 +48,22 @@
                 <label for='description'>* Description</label>
                 <input type='text' name='description' class="form-control" id='description' value='{{ old('description', $transaction->description) }}'>
             </div>
+            <div class="form-group">
+                <label for='tags'>Tags:</label>
+                <select id='tags' name='tags[]' class="form-control" multiple>
+                    @foreach($tagsForCheckboxes as $tag_id => $tagName)
+                        <option value='{{ $tag_id }}'
+                            @if (old('tags'))
+                                {{ (in_array($tag_id, old('tags'))) ? 'SELECTED' : '' }}
+                            @else
+                                {{ (in_array($tagName, $tagsForThisTransaction)) ? 'SELECTED' : '' }}
+                            @endif>
+                            {{$tagName}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             {{-- Extracted error code to its own view file --}}
             @include('errors')
 

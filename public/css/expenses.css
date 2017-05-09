@@ -7,8 +7,11 @@
 .navbar-brand {
     display: none;
 }
+body {
+    margin:0 0 100px !important;
+}
 footer {
-    position: fixed;
+    position: absolute;
     left:0;
     bottom:0;
     height:30px;
@@ -18,9 +21,31 @@ footer {
     text-align:center;
     padding:5px;
 }
-.transactionRow {
+
+.delete-icon:link, .delete-icon:visited {
+    text-decoration: none;
+}
+.delete-icon:hover, .delete-icon:active {
+    text-decoration: none;
+    color: red;
+}
+.edit-icon:link, .edit-icon:visited {
+    text-decoration: none;
+}
+.edit-icon:hover, .edit-icon:active {
+    text-decoration: none;
+    color: green;
+}
+
+.transactionRow, .categoryRow {
     cursor: pointer;
 
+}
+.category {
+    color: #5aa0b7;
+}
+.tags {
+    color: #787d7d;
 }
 table tr th {
     text-align: center;
@@ -43,11 +68,6 @@ table tr td:first-child {
 table tr td:last-child {
     text-align: right;
     border-right: 1px solid #ddd;
-}
-.tags td {
-    border-top: 0 !important;
-    color: lightblue;
-    text-align: left !important;
 }
 tr:last-child td {
     border-bottom: 1px solid #ddd;

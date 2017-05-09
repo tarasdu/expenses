@@ -4,10 +4,59 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Tag;
 use App\Transaction;
+use Validator;
+
 
 class PracticeController extends Controller
 {
+
+    public function link(Request $request)
+    {
+        dump($request->startDate);
+        dump($request->endDate);
+        dump($request->categories);
+        dump($request->tags);
+    }
+
+    public function dropdown(Request $request)
+    {
+        $categories = Category::orderBy('name', 'asc')->get();
+        $tags = Tag::orderBy('name', 'asc')->get();
+
+        return view('test')->with([
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
+    }
+
+
+    public function ajax(Request $request)
+    {
+
+            $validator = Validator::make($request->all(), [
+                'categoryName' => 'required|alpha',
+            ]);
+
+            if ($validator->fails()) {
+
+                $errors = $validator->errors();
+                return response()->json([
+                    $errors->first()
+                ], 422);
+            }
+
+            /*$this->validate($request, [
+                'categoryName' => 'required|alpha_dash',
+            ]);*/
+
+
+
+            return response()->json(['feedback' => 'This is post method', 'aa' => 'another response']);
+
+
+    }
 
     public function practice4() {
 

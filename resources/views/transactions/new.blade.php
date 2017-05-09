@@ -42,6 +42,20 @@
                 <label for='description'>Description</label>
                 <input type='description' name='description' class="form-control" id='description' value='{{ old('description') }}'>
             </div>
+            <div class="form-group">
+                <label for='tags'>Tags:</label>
+                <select id='tags' name='tags[]' class="form-control" multiple>
+                    @foreach($tagsForCheckboxes as $tag_id => $tagName)
+                        <option value='{{ $tag_id }}'
+                            @if (old('tags'))
+                                {{ (in_array($tag_id, old('tags'))) ? 'SELECTED' : '' }}
+                            @endif>
+                            {{$tagName}}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             {{-- Extracted error code to its own view file --}}
             @include('errors')
 
