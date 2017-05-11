@@ -134,14 +134,24 @@ class TransactionController extends Controller
         $transaction->description = $request->description;
         $transaction->save();
 
-        $tags = ($request->tags) ? array_keys($request->tags) : [];
+        if($request->tags) {
+            $tags = array_keys($request->tags);
+        }
+        else {
+            $tags = [];
+        }
+
         if ($request->newTag) {
             $newTag = new Tag();
             $newTag->name = $request->newTag;
+            $transaction->tags()->sync($tags);
+            $transaction->tags()->save($newTag);
         }
-        $transaction->tags()->sync($tags);
-
-        $transaction->tags()->save($newTag);
+        else
+        {
+            $transaction->tags()->sync($tags);
+            $transaction->save();
+        }
 
         Session::flash('message', 'The transaction was added.');
 
@@ -206,10 +216,16 @@ class TransactionController extends Controller
         if ($request->newTag) {
             $newTag = new Tag();
             $newTag->name = $request->newTag;
+            $transaction->tags()->sync($tags);
+            $transaction->tags()->save($newTag);
+        }
+        else
+        {
+            $transaction->tags()->sync($tags);
+            $transaction->save();
         }
 
-        $transaction->tags()->sync($tags);
-        $transaction->tags()->save($newTag);
+
 
         Session::flash('message', 'Your changes were saved.');
         return redirect('/');
