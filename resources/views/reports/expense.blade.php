@@ -17,11 +17,11 @@
             @include('errors')
             <br>
 
-            <div class="form-group form-group-sm">
+            <div class="form-group form-group">
                 <label for='startDate'>* Start Date</label>
                 <input type='date' name='startDate' class="form-control" id='startDate' value='{{ $startDate }}'>
             </div>
-            <div class="form-group form-group-sm">
+            <div class="form-group form-group">
                 <label for='endDate'>* End Date</label>
                 <input type='date' name='endDate' class="form-control" id='endDate' value='{{ $endDate }}'>
             </div>
