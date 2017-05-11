@@ -15,11 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
 
-
     		$table->increments('id');
-
     		$table->timestamps();
-
     		$table->date('date');
     		$table->float('amount',11,2)->unsigned();
     		$table->string('description')->nullable();

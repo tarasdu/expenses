@@ -31,19 +31,17 @@ class TransactionController extends Controller
         $categories = Category::orderBy('name', 'asc')->get();
         $tags = Tag::orderBy('name', 'asc')->get();
 
-        if (count($categories) == 0) {
+        if ($categories->count() == 0) {
             return redirect('/categories');
         }
 
-        if (!$request->all()) {
+        if (!$isRequest) {
             $transactions = Transaction::with('category', 'tags')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
         }
         else {
             if ($tagsForFilter) {
 
-                foreach ($tagsForFilter as $key => $value) {
-                    array_push($tagsNames, $key);
-                }
+                $tagsNames = array_keys($tagsForFilter);
                 if ($startDate && $endDate) {
                     $transactions = Transaction::with('category', 'tags')->whereHas('tags', function($tags) use($tagsNames) {
                         $tags->whereIn('name', $tagsNames);
@@ -83,9 +81,7 @@ class TransactionController extends Controller
 
         if ($categoriesForFilter) {
 
-            foreach ($categoriesForFilter as $key => $value) {
-                array_push($categoryIds, $key);
-            }
+            $categoryIds = array_keys($categoriesForFilter);
             $transactions = $transactions->whereIn('category_id', $categoryIds);
         };
 
@@ -123,8 +119,8 @@ class TransactionController extends Controller
             'date' => 'required|date',
             'amount' => 'required|numeric',
             'category_id' => 'not_in:0',
-            'description' => 'nullable|alpha-dash',
-            'newTag' => 'nullable|alpha-dash'
+            'description' => 'nullable|string',
+            'newTag' => 'nullable|string'
         ]);
 
         $transaction = new Transaction();
@@ -160,8 +156,6 @@ class TransactionController extends Controller
 
     public function edit($id) {
 
-
-
         $transaction = Transaction::with('tags')->find($id);
         if(is_null($transaction)) {
             Session::flash('message', 'Transaction was not found.');
@@ -171,13 +165,10 @@ class TransactionController extends Controller
         $categoriesForDropdown = Category::getCategoriesForDropdown();
         $tagsForCheckboxes = Tag::getTagsForCheckboxes();
 
-
         $tagsForThisTransaction = [];
         foreach($transaction->tags as $tag) {
             $tagsForThisTransaction[] = $tag->name;
         }
-
-
 
         return view('transactions.edit')->with([
             'transaction' => $transaction,
@@ -186,10 +177,9 @@ class TransactionController extends Controller
             'tagsForThisTransaction' => $tagsForThisTransaction,
         ]);
 
-
     }
 
-    public function saveEdits(Request $request) {
+    public function saveChanges(Request $request) {
 
         $this->validate($request, [
             'date' => 'required|date',
@@ -200,7 +190,6 @@ class TransactionController extends Controller
         ]);
 
         $transaction = Transaction::find($request->id);
-        # Edit transaction in the database
         $transaction->date = $request->date;
         $transaction->amount = $request->amount;
         $transaction->category_id = $request->category_id;
@@ -225,8 +214,6 @@ class TransactionController extends Controller
             $transaction->save();
         }
 
-
-
         Session::flash('message', 'Your changes were saved.');
         return redirect('/');
     }
@@ -240,7 +227,6 @@ class TransactionController extends Controller
         }
 
         $transaction->tags()->detach();
-
         $transaction->delete();
 
         Session::flash('message', 'Transaction was deleted.');

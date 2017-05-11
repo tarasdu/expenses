@@ -3,7 +3,6 @@
 
         <!-- Modal -->
         <div class="modal-content">
-
             <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                  <h4 class="modal-title">Edit Category</h4>
@@ -11,7 +10,7 @@
             <div class="modal-body">
                 <form class="add-modal" method="POST" action="/categories/edit">
                     {{ csrf_field() }}
-                    <input type='hidden' name='id'>
+                    <input type="hidden" name="id">
                     <div class="form-group">
                         <label for="categoryName" class="control-label">* Name:</label>
                         <input type="text" class="form-control" id="categoryName" name="categoryName">
@@ -21,6 +20,5 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>

@@ -27,9 +27,8 @@ class TransactionsTableSeeder extends Seeder
             $date = Carbon::createFromTimestamp($randomDate)->toDateString();
             $description = "Memo ".rand(1, 100);
 
-
             Transaction::insert([
-
+                
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
                 'date' => $date,

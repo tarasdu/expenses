@@ -29,6 +29,5 @@ class TagTransactionTableSeeder extends Seeder
             }
         }
 
-
     }
 }

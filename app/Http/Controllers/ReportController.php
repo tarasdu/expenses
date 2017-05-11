@@ -13,7 +13,6 @@ class ReportController extends Controller
     public function expenseReport(Request $request)
     {
 
-
         if ($request->exists(['startDate', 'endDate'])) {
 
             $this->validate($request, [
@@ -22,11 +21,8 @@ class ReportController extends Controller
             ]);
         }
 
-
         $startDate = $request->input('startDate', Carbon::now()->startOfMonth()->toDateString());
         $endDate = $request->input('endDate', Carbon::now()->toDateString());
-
-
 
         $transactions = Transaction::whereBetween('date', [$startDate, $endDate])->get();
 
@@ -55,13 +51,6 @@ class ReportController extends Controller
             'endDate' => $endDate,
         ]);
 
-
-    }
-
-    public function filter(Request $request)
-    {
-        dump($request->startDate);
-        dump($request->endDate);
     }
 
 }

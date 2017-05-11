@@ -4,32 +4,24 @@
     Expense Report
 @endsection
 
-@push('head')
-    <link href='/css/report.css' rel='stylesheet'>
-@endpush
 
 @section('content')
 
     <div class="container">
-
-        <form class="form-inline text-center" id="filter" method="get" action="/report">
+        <form class="form-inline text-center" id="filter" method="GET" action="/report">
 
             @include('errors')
+
             <br>
-
             <div class="form-group form-group">
-                <label for='startDate'>* Start Date</label>
-                <input type='date' name='startDate' class="form-control" id='startDate' value='{{ $startDate }}'>
+                <label for="startDate">* Start Date</label>
+                <input type="date" name="startDate" class="form-control" id="startDate" placeholder="YYYY-MM-DD" value="{{ $startDate }}">
             </div>
             <div class="form-group form-group">
-                <label for='endDate'>* End Date</label>
-                <input type='date' name='endDate' class="form-control" id='endDate' value='{{ $endDate }}'>
+                <label for="endDate">* End Date</label>
+                <input type="date" name="endDate" class="form-control" id="endDate" placeholder="YYYY-MM-DD" value="{{ $endDate }}">
             </div>
-
-
-
             <input class='btn btn-primary' type='submit' value='Filter'>
-
         </form>
 
         <h2 class="text-center">Expense Report<br>
@@ -43,25 +35,19 @@
                 </tr>
             </thead>
             <tbody>
-
                 @foreach ($sumByCategory as $category => $sum)
-
                     <tr>
-                        <td><strong class='category'>{{ $category }}</strong> <br><br> Total</td>
-                        <td><br><br>{{ '$'.number_format($sum, 2) }}</td>
+                        <td><strong class="category">{{ $category }}</strong> <br><br> Total</td>
+                        <td><br><br>&#36;{{ number_format($sum, 2) }}</td>
                     </tr>
-
                 @endforeach
-
                     <tr>
                         <th>TOTAL</th>
-                        <th>{{ '$'.number_format($total, 2) }}</th>
+                        <th>&#36;{{ number_format($total, 2) }}</th>
                     </tr>
             </tbody>
         </table>
         <br><br>
-
-
     </div>
 
 @endsection

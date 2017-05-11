@@ -1,36 +1,10 @@
-
+body {
+    margin:0 0 100px !important;
+}
 #logo {
     width: 420px;
     height: 140px;
     margin: auto;
-}
-.navbar-brand {
-    display: none;
-}
-body {
-    margin:0 0 100px !important;
-}
-footer {
-    position: absolute;
-    left:0;
-    bottom:0;
-    height:30px;
-    width:100%;
-    color: #9d9d9d;
-    background-color:#101010;
-    text-align:center;
-    padding:5px;
-}
-.active {
-    background-color: lightgrey;
-}
-.panel-body {
-    padding: 0 10px !important;
-    max-height: 105px;
-    overflow: scroll;
-}
-.col-md-4 label {
-    margin-bottom: 0;
 }
 #newTag {
     margin-top: 10px;
@@ -40,7 +14,17 @@ footer {
 #myNavbar {
     padding: 0 !important;
 }
-
+.navbar-brand {
+    display: none;
+}
+.panel-body {
+    padding: 0 10px !important;
+    max-height: 105px;
+    overflow: scroll;
+}
+.col-md-4 label {
+    margin-bottom: 0;
+}
 .delete-icon:link, .delete-icon:visited {
     text-decoration: none;
 }
@@ -55,10 +39,8 @@ footer {
     text-decoration: none;
     color: green;
 }
-
 .transactionRow, .categoryRow {
     cursor: pointer;
-
 }
 .category {
     color: #5aa0b7;
@@ -99,31 +81,28 @@ tr:last-child td {
 }
 
 @media (max-width: 480px) {
-.container-fluid, .container {
-    font-size: 16px !important;
-}
-.form-control {
-    height: 40px !important;
-    font-size: 18px !important;
-}
-input[type=date] {
-    height: 40px !important;
-}
-#newTag {
-    height: 35px !important;
-}
-#logo {
-    display: none;
-}
-form h2 {
-    margin-top: 0;
-    text-align: center;
-}
-.navbar-brand {
-    padding: 3px 0px 9px 15px !important;
-    display: inherit;
-}
-footer {
-    display: none !important;
-}
+    .container {
+        font-size: 16px !important;
+    }
+    .form-control {
+        height: 40px !important;
+        font-size: 18px !important;
+    }
+    input[type=date] {
+        height: 40px !important;
+    }
+    #newTag {
+        height: 35px !important;
+    }
+    #logo {
+        display: none;
+    }
+    form h2 {
+        margin-top: 0;
+        text-align: center;
+    }
+    .navbar-brand {
+        padding: 3px 0px 9px 15px !important;
+        display: inherit;
+    }
 }

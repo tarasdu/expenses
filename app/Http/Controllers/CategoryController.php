@@ -12,7 +12,6 @@ class CategoryController extends Controller
     public function index() {
 
         $category = new Category();
-
         $categories = $category->orderBy('name', 'asc')->get();
 
         return view('categories.list')->with([
@@ -25,7 +24,7 @@ class CategoryController extends Controller
     public function addCategory(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'categoryName' => 'required|alpha-dash',
+            'categoryName' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -50,7 +49,7 @@ class CategoryController extends Controller
     public function editCategory(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'categoryName' => 'required|alpha-dash',
+            'categoryName' => 'required|string',
         ]);
 
         if ($validator->fails()) {

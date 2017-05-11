@@ -15,17 +15,9 @@ class ConnectCategoriesAndTransactions extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
 
-        # Remove the field associated with the old way we were storing authors
-        # Can do this here, or update the original migration that creates the `books` table
-        # $table->dropColumn('author');
-
-		# Add a new INT field called `author_id` that has to be unsigned (i.e. positive)
-        $table->integer('category_id')->unsigned();
-
-		# This field `author_id` is a foreign key that connects to the `id` field in the `authors` table
-        $table->foreign('category_id')->references('id')->on('categories');
-
-    });
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
+        });
     }
 
     /**
@@ -37,11 +29,8 @@ class ConnectCategoriesAndTransactions extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
 
-        # ref: http://laravel.com/docs/migrations#dropping-indexes
-        # combine tablename + fk field name + the word "foreign"
-        $table->dropForeign('transactions_category_id_foreign');
-
-        $table->dropColumn('category_id');
-    });
+            $table->dropForeign('transactions_category_id_foreign');
+            $table->dropColumn('category_id');
+        });
     }
 }
