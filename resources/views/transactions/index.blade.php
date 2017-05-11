@@ -12,7 +12,7 @@
 
             @include('modals/deleteTransaction')
 
-            @if(count($transactions) == 0)
+            @if(!$isRequest && count($transactions) == 0)
                 <div class="jumbotron">
                     <p class="text-center">You don't have any transactions yet; would you like to <a href='/transactions/new'>add one</a>?</p>
                 </div>
@@ -22,14 +22,74 @@
                     <a href="#transactionFilter" class="btn btn-primary pull-right" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="transactionFilter">Filter Transactions</a>
                 </div>
 
-                <div class="collapse" id="transactionFilter">
+                <div class="collapse {{ $isRequest ? 'in' : '' }}" id="transactionFilter">
                     <br>
-                    <div class="well">
-                        <p>Here will be filter options</p>
-                    </div>
+                    <form method="get" action="/">
+                        <div class="well">
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <strong for='startDate'>Start Date</strong>
+                                        <input type='date' name='startDate' class="form-control" id='startDate' value='{{ old('startDate', $startDate)}}'>
+                                    </div>
+                                    <div class="form-group">
+                                        <strong for='endDate'>End Date</strong>
+                                        <input type='date' name='endDate' class="form-control" id='endDate' value='{{ old('endDate', $endDate)}}'>
+                                    </div>
+                                    @include('errors')
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <strong>Category&nbsp;&nbsp;</strong>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body cat">
+                                                @foreach ($categories as $category)
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="categories[{{ $category->id }}]"
+                                                            @if ($isRequest && $categoryIds)
+                                                                {{ in_array($category->id, $categoryIds) ? 'checked="checked"' : '' }}
+                                                            @else
+                                                                {{ '' }}
+                                                            @endif
+                                                            > {{ $category->name }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <strong>Tags&nbsp;&nbsp;</strong>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body tag">
+                                                @foreach ($tags as $tag)
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="tags[{{ $tag->name }}]"
+                                                            @if ($isRequest && $tagsNames)
+                                                                {{ in_array($tag->name, $tagsNames) ? 'checked="checked"' : '' }}
+                                                            @else
+                                                                {{ '' }}
+                                                            @endif
+                                                            > {{ $tag->name }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <input type="submit" class="btn btn-primary " value="Filter">
+                            <a href="\" class="btn btn-default" role="button">Show All</a>
+                        </div>
+                    </form>
                 </div>
-
-
 
                 <table class="table table-hover">
                     <thead>

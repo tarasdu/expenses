@@ -16,7 +16,7 @@
 
         @if(count($categories) == 0)
             <div class="jumbotron">
-                <p class="text-center">You don't have any categories yet; would you like to <a href='/categories/new'>add one</a>?</p>
+                <p class="text-center">You don't have any categories yet; would you like to <a href="#addCategory" data-toggle="modal">add one</a>?</p>
             </div>
         @else
             <div>

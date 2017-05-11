@@ -28,7 +28,7 @@
             </div>
 
             <div class="form-group">
-                <label for='category_id'>* Category:</label>
+                <label for='category_id'>* Category</label>
                 <select id='category_id' name='category_id' class="form-control">
                     @foreach($categoriesForDropdown as $category_id => $categoryName)
                         <option value='{{ $category_id }}'
@@ -48,6 +48,7 @@
                 <label for='description'>* Description</label>
                 <input type='text' name='description' class="form-control" id='description' value='{{ old('description', $transaction->description) }}'>
             </div>
+            {{--
             <div class="form-group">
                 <label for='tags'>Tags:</label>
                 <select id='tags' name='tags[]' class="form-control" multiple>
@@ -62,6 +63,28 @@
                         </option>
                     @endforeach
                 </select>
+            </div>
+            --}}
+            <div class="form-group">
+                <strong>Tags</strong>
+                <div class="panel panel-default">
+                    <div class="panel-body tag">
+                        <label for="newTag"><input class="form-control" type="text" id="newTag" name="newTag" placeholder="Add a new tag here"></label>
+                        @foreach ($tagsForCheckboxes as $tag_id => $tagName)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="tags[{{ $tag_id }}]"
+                                    @if (old('tags'))
+                                        {{ array_key_exists($tag_id, old('tags')) ? 'checked="checked"' : '' }}
+                                    @else
+                                        {{ (in_array($tagName, $tagsForThisTransaction)) ? 'checked="checked"' : '' }}
+                                    @endif
+                                    > {{ $tagName }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
 
             {{-- Extracted error code to its own view file --}}

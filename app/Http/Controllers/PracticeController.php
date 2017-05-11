@@ -14,10 +14,67 @@ class PracticeController extends Controller
 
     public function link(Request $request)
     {
-        dump($request->startDate);
-        dump($request->endDate);
-        dump($request->categories);
-        dump($request->tags);
+        $startDate = ($request->startDate) ? : null;
+        $endDate = ($request->endDate) ? : null;
+        $categoriesForFilter = ($request->categories) ? : null;
+        $tagsForFilter = ($request->tags) ? : null;
+
+        if (!$request->all()) {
+            $transactions = Transaction::with('category', 'tags')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+        }
+        else {
+            if ($tagsForFilter) {
+                $tagsNames = [];
+                foreach ($tagsForFilter as $key => $value) {
+                    array_push($tagsNames, $key);
+                }
+                if ($startDate && $endDate) {
+                    $transactions = Transaction::with('category', 'tags')->whereHas('tags', function($tags) use($tagsNames) {
+                        $tags->whereIn('name', $tagsNames);
+                    })->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                elseif ($startDate) {
+                    $transactions = Transaction::with('category', 'tags')->whereHas('tags', function($tags) use($tagsNames) {
+                        $tags->whereIn('name', $tagsNames);
+                    })->where('date', '>=', $startDate)->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                elseif ($endDate) {
+                    $transactions = Transaction::with('category', 'tags')->whereHas('tags', function($tags) use($tagsNames) {
+                        $tags->whereIn('name', $tagsNames);
+                    })->where('date', '<=', $endDate)->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                else {
+                    $transactions = Transaction::with('category', 'tags')->whereHas('tags', function($tags) use($tagsNames) {
+                        $tags->whereIn('name', $tagsNames);
+                    })->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+            }
+            else {
+                if ($startDate && $endDate) {
+                    $transactions = Transaction::with('category', 'tags')->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                elseif ($startDate) {
+                    $transactions = Transaction::with('category', 'tags')->where('date', '>=', $startDate)->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                elseif ($endDate) {
+                    $transactions = Transaction::with('category', 'tags')->where('date', '<=', $endDate)->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+                else {
+                    $transactions = Transaction::with('category', 'tags')->orderBy('date', 'desc')->orderBy('id', 'desc')->get();
+                }
+            }
+        }
+
+        if ($categoriesForFilter) {
+            $categoryIds = [];
+            foreach ($categoriesForFilter as $key => $value) {
+                array_push($categoryIds, $key);
+            }
+            $transactions = $transactions->whereIn('category_id', $categoryIds);
+        }
+
+        dump($transactions->toArray());
+
     }
 
     public function dropdown(Request $request)

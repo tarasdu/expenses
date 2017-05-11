@@ -28,7 +28,7 @@
 
 
 
-            <input class='btn btn-primary btn-sm' type='submit' value='Filter'>
+            <input class='btn btn-primary' type='submit' value='Filter'>
 
         </form>
 
@@ -47,7 +47,7 @@
                 @foreach ($sumByCategory as $category => $sum)
 
                     <tr>
-                        <td>{{ $category }} <br><br> Total</td>
+                        <td><strong class='category'>{{ $category }}</strong> <br><br> Total</td>
                         <td><br><br>{{ '$'.number_format($sum, 2) }}</td>
                     </tr>
 

@@ -15,17 +15,17 @@ class TransactionsTableSeeder extends Seeder
     public function run()
     {
         $categories = Category::all();
-        $numberOfCategories = count($categories);
+        $numberOfCategories = $categories->count();
 
         for ($i=0; $i < 1000; $i++) {
 
-            $categoryId = rand(0, $numberOfCategories-1)+1;
+            $categoryId = rand(1, $numberOfCategories);
             $amount = rand(1, 50);
             $endDate = Carbon::now()->timestamp;
             $startDate = Carbon::now()->subYears(2)->timestamp;
             $randomDate = rand($startDate, $endDate);
             $date = Carbon::createFromTimestamp($randomDate)->toDateString();
-            $description = "Note ".rand(1, 100);
+            $description = "Memo ".rand(1, 100);
 
 
             Transaction::insert([

@@ -14,6 +14,7 @@ Route::post('/transactions/edit', 'TransactionController@saveEdits');
 
 Route::post('/transactions/delete', 'TransactionController@delete');
 
+
 Route::get('/categories', 'CategoryController@index');
 
 Route::post('/categories/new', 'CategoryController@addCategory');
@@ -22,22 +23,22 @@ Route::post('/categories/edit', 'CategoryController@editCategory');
 
 Route::post('/categories/delete', 'CategoryController@delete');
 
+
 Route::get('/report', 'ReportController@expenseReport');
 
 Route::get('/report/filter', 'ReportController@filter');
 
+if(App::environment('local')) {
+	Route::any('/practice/{n?}', 'PracticeController@index');
 
+	Route::get('/pract/ajax', 'PracticeController@ajax');
 
+	Route::post('/pract/ajax', 'PracticeController@ajax');
 
-Route::any('/practice/{n?}', 'PracticeController@index');
+	Route::get('/pract/dropdown', 'PracticeController@dropdown');
 
-Route::get('/pract/ajax', 'PracticeController@ajax');
-
-Route::post('/pract/ajax', 'PracticeController@ajax');
-
-Route::get('/pract/dropdown', 'PracticeController@dropdown');
-
-Route::get('/pract/link', 'PracticeController@link');
+	Route::get('/pract/link', 'PracticeController@link');
+}
 
 
 

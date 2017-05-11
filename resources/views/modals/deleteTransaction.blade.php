@@ -25,7 +25,7 @@
                     <input class="transactionId" type='hidden' name='id'>
                     <input type="submit" class="btn btn-primary" value="Yes">
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                <form>
+                </form>
             </div>
         </div>
 
