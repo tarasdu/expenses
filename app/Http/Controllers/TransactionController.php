@@ -7,6 +7,7 @@ use App\Category;
 use App\Tag;
 use App\Transaction;
 use Session;
+use Auth;
 
 class TransactionController extends Controller
 {
@@ -184,7 +185,7 @@ class TransactionController extends Controller
             return redirect('/');
         }
 
-        $user = $request->user();
+        $user = Auth::user();
 
         $categories = Category::where('user_id', '=', $user->id)->orderBy('name', 'ASC')->get();
         $categoriesForDropdown = [];
