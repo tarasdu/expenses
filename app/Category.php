@@ -11,15 +11,9 @@ class Category extends Model
 		return $this->hasMany('App\Transaction');
 	}
 
-    public static function getCategoriesForDropdown() {
+    public function user() {
 
-        $categories = Category::orderBy('name', 'ASC')->get();
-
-        $categoriesForDropdown = [];
-        foreach($categories as $category) {
-            $categoriesForDropdown[$category->id] = $category->name;
-        }
-
-        return $categoriesForDropdown;
+        return $this->belongsTo('App\User');
     }
+
 }

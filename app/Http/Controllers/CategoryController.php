@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Category;
 use Session;
 use Validator;
+use Auth;
 
 class CategoryController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+
+        $user = $request->user();
 
         $category = new Category();
-        $categories = $category->orderBy('name', 'asc')->get();
+        $categories = $category->where('user_id', '=', $user->id)->orderBy('name', 'asc')->get();
 
         return view('categories.list')->with([
 
@@ -36,8 +39,10 @@ class CategoryController extends Controller
         }
 
         $category = new Category();
+        $user = Auth::user();
 
         $category->name = $request->categoryName;
+        $category->user_id = $user->id;
         $category->save();
 
 

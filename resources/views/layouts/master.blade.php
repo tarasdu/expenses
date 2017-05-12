@@ -51,11 +51,24 @@
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="/">Transactions</a></li>
-                            <li><a href="/categories">Categories</a></li>
-                            <li><a href="/report">Expense Report</a></li>
-                        </ul>
+                        @if (Auth::check())
+                            <ul class="nav navbar-nav">
+                                <li><a href="/">Transactions</a></li>
+                                <li><a href="/categories">Categories</a></li>
+                                <li><a href="/report">Expense Report</a></li>
+                            </ul>
+                            <form method='POST' id='logout' action='/logout'>
+                                {{ csrf_field() }}
+                            </form>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="#" onClick='document.getElementById("logout").submit();'><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                            </ul>
+                        @else
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href='/login'>Login</a></li>
+                                <li><a href='/register'>Register</a></li>
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </nav>

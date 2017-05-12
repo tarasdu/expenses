@@ -10,12 +10,9 @@ class Tag extends Model
         return $this->belongsToMany('App\Transaction')->withTimestamps();
     }
 
-    public static function getTagsForCheckboxes() {
-        $tags = Tag::orderBy('name','ASC')->get();
-        $tagsForCheckboxes = [];
-        foreach($tags as $tag) {
-            $tagsForCheckboxes[$tag['id']] = $tag->name;
-        }
-        return $tagsForCheckboxes;
+    public function user() {
+
+        return $this->belongsTo('App\User');
     }
+
 }

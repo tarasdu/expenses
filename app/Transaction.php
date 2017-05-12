@@ -16,4 +16,9 @@ class Transaction extends Model
 
         return $this->belongsToMany('App\Tag')->withTimestamps();
     }
+
+    public function user() {
+
+        return $this->belongsTo('App\User');
+    }
 }

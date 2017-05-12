@@ -17,6 +17,7 @@ class TagsTableSeeder extends Seeder
         foreach($tags as $tagName) {
             $tag = new Tag();
             $tag->name = $tagName;
+            $tag->user_id = 1;
             $tag->save();
         }
     }

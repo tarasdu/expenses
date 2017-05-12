@@ -21,14 +21,15 @@ class ReportController extends Controller
             ]);
         }
 
+        $user = $request->user();
         $startDate = $request->input('startDate', Carbon::now()->startOfMonth()->toDateString());
         $endDate = $request->input('endDate', Carbon::now()->toDateString());
 
-        $transactions = Transaction::whereBetween('date', [$startDate, $endDate])->get();
+        $transactions = Transaction::where('user_id', '=', $user->id)->whereBetween('date', [$startDate, $endDate])->get();
 
         $transactionsByCategory = $transactions->groupBy('category_id');
 
-        $categories = Category::all();
+        $categories = Category::where('user_id', '=', $user->id)->get();
 
         $sumByCategory = [];
 

@@ -22,6 +22,7 @@ class CategoriesTableSeeder extends Seeder
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
                 'name' => $category,
+                'user_id' => 1,
             ]);
 
         }

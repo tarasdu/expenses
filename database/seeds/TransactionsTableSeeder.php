@@ -28,13 +28,14 @@ class TransactionsTableSeeder extends Seeder
             $description = "Memo ".rand(1, 100);
 
             Transaction::insert([
-                
+
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString(),
                 'date' => $date,
                 'amount' => $amount,
                 'category_id' => $categoryId,
-                'description' => $description
+                'description' => $description,
+                'user_id' => 1,
             ]);
 
         }
