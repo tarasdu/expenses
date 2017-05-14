@@ -30,19 +30,6 @@ if(App::environment('local')) {
 
 };
 
-Route::get('/show-login-status', function() {
-
-    # You may access the authenticated user via the Auth facade
-    $user = Auth::user();
-
-    if($user)
-        dump('You are logged in.', $user->toArray());
-    else
-        dump('You are not logged in.');
-
-    return;
-});
-
 Auth::routes();
 
 Route::get('/home', 'TransactionController@index');
