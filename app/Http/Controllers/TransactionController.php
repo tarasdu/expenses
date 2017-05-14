@@ -136,13 +136,17 @@ class TransactionController extends Controller
 
     public function addNewTransaction(Request $request) {
 
+        $messages = [
+            'category_id.not_in' => 'Category not selected.',
+        ];
+
         $this->validate($request, [
             'date' => 'required|date',
             'amount' => 'required|numeric',
             'category_id' => 'not_in:0',
             'description' => 'nullable|string',
             'newTag' => 'nullable|string'
-        ]);
+        ], $messages);
 
         $transaction = new Transaction();
         $transaction->date = $request->date;
@@ -215,13 +219,17 @@ class TransactionController extends Controller
 
     public function saveChanges(Request $request) {
 
+        $messages = [
+            'category_id.not_in' => 'Category not selected.',
+        ];
+
         $this->validate($request, [
             'date' => 'required|date',
             'amount' => 'required|numeric',
             'category_id' => 'not_in:0',
             'description' => 'nullable|string',
             'newTag' => 'nullable|string'
-        ]);
+        ], $messages);
 
         $transaction = Transaction::find($request->id);
         $transaction->date = $request->date;

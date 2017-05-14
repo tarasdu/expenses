@@ -34,7 +34,7 @@
                 <a href="/">
                     <img
                     src="/img/expenses_X_cool.png"
-                    alt="Expenses Logo" width="420px" height="140px">
+                    alt="Expenses Logo" width="420" height="140">
                 </a>
             </div>
 
@@ -47,7 +47,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="/">
-                            <img alt="Brand" src="/img/expenses.png" width="138px" height="40px">
+                            <img alt="Brand" src="/img/expenses.png" width="138" height="40">
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
@@ -61,12 +61,16 @@
                                 {{ csrf_field() }}
                             </form>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="#" onClick='document.getElementById("logout").submit();'><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-                            </ul>
-                        @else
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href='/login'>Login</a></li>
-                                <li><a href='/register'>Register</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="#" id="logoutLink"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         @endif
                     </div>
@@ -80,6 +84,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/js/expenses.js"></script>
 
         @stack('body')
 

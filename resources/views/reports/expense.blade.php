@@ -9,23 +9,29 @@
 
     <div class="container">
         <form class="form-inline text-center" id="filter" method="GET" action="/report">
+            <h2>Expense Report</h2>
+            <p class="small">* Required fields</p>
 
-            @include('errors')
-
-            <br>
-            <div class="form-group form-group">
-                <label for="startDate">* Start Date</label>
-                <input type="date" name="startDate" class="form-control" id="startDate" placeholder="YYYY-MM-DD" value="{{ $startDate }}">
+            <div class="form-group{{ $errors->has('startDate') ? ' has-error' : '' }}">
+                <label for="startDate" class="control-label">* Start Date<br></label>
+                <input type="date" name="startDate" class="form-control" id="startDate" value="{{ $startDate }}">
             </div>
-            <div class="form-group form-group">
-                <label for="endDate">* End Date</label>
-                <input type="date" name="endDate" class="form-control" id="endDate" placeholder="YYYY-MM-DD" value="{{ $endDate }}">
+
+            <div class="form-group{{ $errors->has('endDate') ? ' has-error' : '' }}">
+                <label for="endDate" class="control-label">* End Date</label>
+                <input type="date" name="endDate" class="form-control" id="endDate" value="{{ $endDate }}">
             </div>
             <input class='btn btn-primary' type='submit' value='Filter'>
+
+            @if($errors->any())
+                <span class="help-block">
+                    <strong class="error">{{ $errors->first() }}</strong>
+                </span>
+            @endif
+
         </form>
 
-        <h2 class="text-center">Expense Report<br>
-        <small>from {{ $startDate }} to {{ $endDate }}</small></h2>
+
 
         <table class="table">
             <thead>
@@ -49,5 +55,9 @@
         </table>
         <br><br>
     </div>
+
+    @push('body')
+        <script src="/js/transactions.js"></script>
+    @endpush
 
 @endsection

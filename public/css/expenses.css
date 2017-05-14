@@ -6,6 +6,32 @@ body {
     height: 140px;
     margin: auto;
 }
+.auth {
+    max-width: 450px;
+    min-width: 250px;
+    box-sizing: border-box;
+    margin: 0 auto;
+
+}
+.auth form {
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    padding: 0 25px 20px 25px;
+}
+.auth h2 {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.auth p {
+    margin-top: 5px;
+}
+.auth button[type=submit] {
+    background-color: #10d7f7;
+}
+#logout {
+    display: none;
+}
 #newTag {
     margin-top: 10px;
     height: 25px;
@@ -79,8 +105,14 @@ tr:last-child td {
 .modal-footer {
     text-align: center !important;
 }
+#filter h2 {
+    margin-bottom: 0;
+}
+.error {
+    color: #a94442;
+}
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
     .container {
         font-size: 16px !important;
     }

@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    if ($("input[type='date']").prop('type') != 'date') {
+
+        $("input[type='date']").attr({
+            'type' : 'text',
+            'placeholder' : 'YYYY-MM-DD'
+        });
+    }
+
     $(".transactionRow").click(function(event) {
 
         var target = $(event.target);
