@@ -15,17 +15,17 @@
 
         @if($categories->count() == 0)
             <div class="jumbotron">
-                <p class="text-center">You don't have any categories yet; would you like to <a href="#addCategory" data-toggle="modal">add one</a>?</p>
+                <p class="text-center">Ви не створили жодної категорії; створіть одну<a href="#addCategory" data-toggle="modal">тут</a>?</p>
             </div>
         @else
             <div>
-                <a href="#addCategory" data-toggle="modal" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Category</a>
+                <a href="#addCategory" data-toggle="modal" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Нова категорія</a>
             </div>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Category</th>
+                        <th>Категорія</th>
                         <th></th>
                     </tr>
                 </thead>

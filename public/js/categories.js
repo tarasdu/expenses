@@ -29,7 +29,7 @@ $(document).ready(function() {
         var category_id = trigger.data('catid');
         var category_name = trigger.data('catname');
 
-        $('#deleteCategory .info').text('Delete category "' + category_name + '"?');
+        $('#deleteCategory .info').text('Видалити категорію "' + category_name + '"?');
         $('#deleteCategory form input[name$="id"]').attr('value', category_id);
 
     });

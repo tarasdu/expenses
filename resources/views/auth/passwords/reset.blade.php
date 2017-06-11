@@ -8,7 +8,7 @@
 
             <form id='register' method="POST" action="{{ route('password.request') }}">
                 {{ csrf_field() }}
-                <h2>Reset Password</h2>
+                <h2>Відновлення пароля</h2>
 
                 @if (session('status'))
                     <div class="alert alert-success">
@@ -19,7 +19,7 @@
                 <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="control-label">* E-Mail Address</label>
+                    <label for="email" class="control-label">* E-Mail адреса</label>
                     <input class="form-control" id="email" type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
                     @if($errors->has('email'))
                         <span class="help-block">
@@ -28,8 +28,8 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="control-label">* Password</label>
-                    <input class="form-control" id="password" type="password" name="password" placeholder="Password" required>
+                    <label for="password" class="control-label">* Пароль</label>
+                    <input class="form-control" id="password" type="password" name="password" placeholder="Пароль" required>
                     @if ($errors->has('password'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -37,8 +37,8 @@
                     @endif
                 </div>
                 <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                    <label for="password-confirm" class="control-label">* Confirm Password</label>
-                    <input class="form-control" id="password-confirm" type="password" name="password_confirmation" placeholder="Confirm Password" required>
+                    <label for="password-confirm" class="control-label">* Підтвердження пароля</label>
+                    <input class="form-control" id="password-confirm" type="password" name="password_confirmation" placeholder="Підтвердження пароля" required>
                     @if ($errors->has('password_confirmation'))
                         <span class="help-block">
                             <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -47,9 +47,9 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default btn-block">Reset Password</button>
+                    <button type="submit" class="btn btn-default btn-block">Встановити пароль</button>
                 </div>
-                <p class="small text-center">* Required fields</p>
+                <p class="small text-center">* Обов&rsquo;язкові поля</p>
             </form>
 
         </div>

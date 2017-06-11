@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group{{ $errors->has('startDate') ? ' has-error' : '' }}">
-                        <label for="startDate" class="control-label">Start Date</label>
+                        <label for="startDate" class="control-label">Початкова дата</label>
                         <input type="date" name="startDate" class="form-control" id="startDate" value="{{ old("startDate", $startDate)}}">
                         @if($errors->has('startDate'))
                             <span class="help-block">
@@ -14,7 +14,7 @@
                         @endif
                     </div>
                     <div class="form-group{{ $errors->has('endDate') ? ' has-error' : '' }}">
-                        <label for="endDate" class="control-label">End Date</label>
+                        <label for="endDate" class="control-label">Кінцева дата</label>
                         <input type="date" name="endDate" class="form-control" id="endDate" value="{{ old("endDate", $endDate)}}">
                         @if($errors->has('endDate'))
                             <span class="help-block">
@@ -26,7 +26,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Category&nbsp;&nbsp;</strong>
+                        <strong>Категорія&nbsp;&nbsp;</strong>
                         <div class="panel panel-default">
                             <div class="panel-body cat">
                                 @foreach ($categories as $category)
@@ -49,7 +49,7 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <strong>Tags&nbsp;&nbsp;</strong>
+                        <strong>Мітки&nbsp;&nbsp;</strong>
                         <div class="panel panel-default">
                             <div class="panel-body tag">
                                 @foreach ($tags as $tag)
@@ -70,8 +70,8 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary " value="Filter">
-            <a href="/" class="btn btn-default" role="button">Show All</a>
+            <input type="submit" class="btn btn-primary " value="Застосувати">
+            <a href="/" class="btn btn-default" role="button">Показати все</a>
         </div>
     </form>
 </div>

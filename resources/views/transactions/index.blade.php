@@ -12,12 +12,12 @@
 
         @if(!$isRequest && $transactions->count() == 0)
             <div class="jumbotron">
-                <p class="text-center">You don't have any transactions yet; would you like to <a href="/transactions/new">add one</a>?</p>
+                <p class="text-center">У вас немає жодної транзакції; додайте одну<a href="/transactions/new">тут</a>?</p>
             </div>
         @else
             <div>
-                <a href="/transactions/new" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Transaction</a>
-                <a href="#transactionFilter" class="btn btn-primary pull-right" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="transactionFilter">Filter Transactions</a>
+                <a href="/transactions/new" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Нова транзакція</a>
+                <a href="#transactionFilter" class="btn btn-primary pull-right" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="transactionFilter">Фільтр транзакцій</a>
             </div>
 
             @include('transactions/filter')
@@ -25,8 +25,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Date/Category</th>
-                        <th>Amount</th>
+                        <th>Дата/Категорія</th>
+                        <th>Сума</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,7 @@
                                 <a class="delete-icon" href="#deleteTransaction" data-toggle="modal" data-id="{{ $transaction->id }}" data-date="{{ $transaction->date }}" data-category="{{ $transaction->category->name }}" data-amount="{{ $transaction->amount }}">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
-                                <br><br><br>&#36;{{number_format($transaction->amount, 2)}}
+                                <br><br><br>{{number_format($transaction->amount, 2)}}&nbsp;грн.
                             </td>
                         </tr>
                     @endforeach

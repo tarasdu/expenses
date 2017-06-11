@@ -6,7 +6,7 @@
 
             <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                 <h4 class="modal-title">Delete transaction?</h4>
+                 <h4 class="modal-title">Видалити транзакцію?</h4>
             </div>
             <div class="modal-body">
                 <table class="table table-bordered">
@@ -23,8 +23,8 @@
                 <form class="delete-modal" method="POST" action="/transactions/delete">
                     {{ csrf_field() }}
                     <input class="transactionId" type='hidden' name='id'>
-                    <input type="submit" class="btn btn-primary" value="Yes">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <input type="submit" class="btn btn-primary" value="Так">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ні</button>
                 </form>
             </div>
         </div>

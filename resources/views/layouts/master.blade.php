@@ -53,9 +53,9 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         @if (Auth::check())
                             <ul class="nav navbar-nav">
-                                <li><a href="/">Transactions</a></li>
-                                <li><a href="/categories">Categories</a></li>
-                                <li><a href="/report">Expense Report</a></li>
+                                <li><a href="/">Транзакції</a></li>
+                                <li><a href="/categories">Категорії</a></li>
+                                <li><a href="/report">Звіт по витратах</a></li>
                             </ul>
                             <form method='POST' id='logout' action='/logout'>
                                 {{ csrf_field() }}
@@ -67,7 +67,7 @@
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
-                                            <a href="#" id="logoutLink"><span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                                            <a href="#" id="logoutLink"><span class="glyphicon glyphicon-log-out"></span> Вийти</a>
                                         </li>
                                     </ul>
                                 </li>

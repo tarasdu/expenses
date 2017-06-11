@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         $('#deleteTransaction .date').text(date);
         $('#deleteTransaction .category').text(category_name);
-        $('#deleteTransaction .amount').text('$'+amount.toFixed(2));
+        $('#deleteTransaction .amount').text(amount.toFixed(2) + ' грн.');
         $('.transactionId').attr('value', transaction_id);
 
     });
