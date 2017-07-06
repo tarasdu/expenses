@@ -26,7 +26,7 @@
             <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                 <label for="amount" class="control-label">* Сума</label>
                 <div class="input-group">
-                    <span class="input-group-addon">&#36;</span>
+                    <span class="input-group-addon">грн.</span>
                     <input type="number" step="0.01" name="amount" class="form-control" id="amount" value="{{ old("amount") }}">
                 </div>
                 @if($errors->has('amount'))

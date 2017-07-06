@@ -6,7 +6,7 @@
 
         <div class="auth">
 
-            <form id='login' method="POST" action="/login">
+            <form id='login' method="POST" action="login">
                 {{ csrf_field() }}
                 <h2>Вхід</h2>
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -41,7 +41,7 @@
             </form>
 
             <h5 class="text-center">Ще не користуєтесь eXpenses?</h5>
-            <a href="/register" class="btn btn-default btn-block" role="button">Зареєструватись</a>
+            <a href="register" class="btn btn-default btn-block" role="button">Зареєструватись</a>
 
         </div>
 

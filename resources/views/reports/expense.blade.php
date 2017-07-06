@@ -44,12 +44,12 @@
                 @foreach ($sumByCategory as $category => $sum)
                     <tr>
                         <td><strong class="category">{{ $category }}</strong> <br><br> Всього</td>
-                        <td><br><br>&#36;{{ number_format($sum, 2) }}</td>
+                        <td><br><br>{{ number_format($sum, 2) }} грн.</td>
                     </tr>
                 @endforeach
                     <tr>
                         <th>ВСЬОГО</th>
-                        <th>&#36;{{ number_format($total, 2) }}</th>
+                        <th>{{ number_format($total, 2) }} грн.</th>
                     </tr>
             </tbody>
         </table>
